@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "glad/glad.h"
 #include <GLFW/glfw3.h>
 
 using namespace std;
@@ -11,7 +12,8 @@ int main() {
 		return -1;
 	}
 
-	/* Create a windowed mode window and its OpenGL context */
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
 	if (!window)
 	{
@@ -19,19 +21,17 @@ int main() {
 		return -1;
 	}
 
-	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
+	gladLoadGL();
 
-	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
-		/* Render here */
+		int width, height;
+		glfwGetFramebufferSize(window, &width, &height);
+		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
-
-		/* Poll for and process events */
 		glfwPollEvents();
 	}
 
