@@ -20,6 +20,9 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 add_subdirectory(${CMAKE_SOURCE_DIR}/submodules/glfw)
 include_directories(${CMAKE_SOURCE_DIR}/submodules/glfw/include)
 
+add_subdirectory(${CMAKE_SOURCE_DIR}/submodules/glm)
+include_directories(${CMAKE_SOURCE_DIR}/submodules/glm)
+
 add_executable(custom_engine ${HEADER_FILES} ${SRC_FILES})
 install(TARGETS custom_engine DESTINATION bin)
-target_link_libraries(custom_engine glfw opengl32)
+target_link_libraries(custom_engine glfw opengl32 glm)
