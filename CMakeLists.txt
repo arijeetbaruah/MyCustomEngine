@@ -24,5 +24,8 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/submodules/glm)
 include_directories(${CMAKE_SOURCE_DIR}/submodules/glm)
 
 add_executable(custom_engine ${HEADER_FILES} ${SRC_FILES})
+
 install(TARGETS custom_engine DESTINATION bin)
+add_custom_command(TARGET custom_engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/Assets/ ${CMAKE_INSTALL_PREFIX}/Assets/)
+
 target_link_libraries(custom_engine glfw opengl32 glm)
