@@ -2,6 +2,7 @@
 
 #include "window.h"
 #include "OGLShader.h"
+#include "Texture.h"
 #include "Assets.h"
 #include <stb_image.h>
 
@@ -65,38 +66,14 @@ int main() {
 
 	glBindVertexArray(0);
 
-	unsigned int texture1, texture2;
-	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	int width, height, nrChannels;
-	stbi_set_flip_vertically_on_load(true);
-	string s = Assets::TEXTUREDIR + "container.jpg";
-	unsigned char* data = stbi_load(s.c_str(), &width, &height, &nrChannels, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
-	}
-	stbi_image_free(data);
+	Texture* tex = new Texture("container.jpg");
 
 	glUseProgram(shader->GetProgramID());
 	glUniform1i(glGetUniformLocation(shader->GetProgramID(), "texture1"), 0);
 	
 	while (!window->Update() && !window->GetKeyPressed(GLFW_KEY_ESCAPE))
 	{
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture1);
+		tex->Bind();
 
 		glUseProgram(shader->GetProgramID());
 		glBindVertexArray(VAO);
