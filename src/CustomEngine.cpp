@@ -77,7 +77,7 @@ int main() {
 	glVertexAttribPointer(vcol_location, 3, GL_FLOAT, GL_FALSE,
 		sizeof(vertices[0]), (void*)(sizeof(float) * 2));
 
-	while (!window->Update())
+	while (!window->Update() && !window->GetKeyPressed(GLFW_KEY_ESCAPE))
 	{
 		glm::mat4 mvp;
 		

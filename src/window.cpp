@@ -34,3 +34,13 @@ void Window::LateUpdate() {
 	glfwSwapBuffers(window);
 	glfwPollEvents();
 }
+
+bool Window::GetKeyPressed(int key) {
+	int state = glfwGetKey(window, key);
+	
+	return state == GLFW_PRESS;
+}
+
+const char* Window::GetKeyName(int key, int scancode) {
+	return glfwGetKeyName(key, scancode);
+}

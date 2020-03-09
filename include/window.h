@@ -10,6 +10,9 @@ public:
 		glfwTerminate();
 	}
 
+	bool GetKeyPressed(int key);
+	const char* GetKeyName(int key, int scancode);
+
 	bool Update();
 	void LateUpdate();
 
